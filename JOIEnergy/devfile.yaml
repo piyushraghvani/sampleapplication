@@ -19,7 +19,7 @@ starterProjects:
         remote: origin
         revision: dotnet-6.0
       remotes:
-        origin: https://github.com/redhat-developer/s2i-dotnetcore-ex
+        origin: https://github.com/piyushraghvani
     subDir: app
 components:
   - name: dotnet
@@ -31,7 +31,7 @@ components:
         - name: CONFIGURATION
           value: Debug
         - name: STARTUP_PROJECT
-          value: app.csproj
+          value: JOIEnergy.csproj
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
       endpoints:
@@ -51,12 +51,12 @@ components:
       deployment/cpuRequest: 10m
       deployment/memoryLimit: 300Mi
       deployment/memoryRequest: 100Mi
-      deployment/container-port: 8081
+      deployment/container-port: 8085
     kubernetes:
       uri: kubernetes/deployment.yaml
       endpoints:
-        - name: http-8081
-          targetPort: 8081
+        - name: http-8085
+          targetPort: 8085
           path: /
   - name: kubernetes-service
     attributes:
@@ -65,7 +65,7 @@ components:
       deployment/cpuRequest: 10m
       deployment/memoryLimit: 200Mi
       deployment/memoryRequest: 100Mi
-      deployment/container-port: 8081
+      deployment/container-port: 8085
     kubernetes:
       uri: kubernetes/service.yaml
 commands:

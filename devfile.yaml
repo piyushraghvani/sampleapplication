@@ -41,7 +41,7 @@ components:
     image:
       imageName: 'dotnet-image:latest'
       dockerfile:
-        uri: JOIEnergy/docker/Dockerfile
+        uri: docker/Dockerfile
         buildContext: .
         rootRequired: false
   - name: kubernetes-deploy

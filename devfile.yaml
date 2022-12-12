@@ -11,15 +11,15 @@ metadata:
   tags:
     - .NET
   attributes:
-    alpha.dockerimage-port: 8081
+    alpha.dockerimage-port: 8085
 starterProjects:
-  - name: s2i-example
+  - name: joienergy
     git:
       checkoutFrom:
         remote: origin
         revision: dotnet-6.0
       remotes:
-        origin: https://github.com/piyushraghvani
+        origin: https://github.com/piyushraghvani/sampleapplication
     subDir: app
 components:
   - name: dotnet
@@ -35,8 +35,8 @@ components:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
       endpoints:
-        - name: http-8080
-          targetPort: 8080
+        - name: http-8085
+          targetPort: 8085
   - name: image-build
     image:
       imageName: 'dotnet-image:latest'

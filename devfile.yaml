@@ -41,7 +41,7 @@ components:
     image:
       imageName: 'dotnet-image:latest'
       dockerfile:
-        uri: docker/Dockerfile
+        uri: JOIEnergy/docker/Dockerfile
         buildContext: .
         rootRequired: false
   - name: kubernetes-deploy
@@ -53,7 +53,7 @@ components:
       deployment/memoryRequest: 100Mi
       deployment/container-port: 8085
     kubernetes:
-      uri: kubernetes/deployment.yaml
+      uri: JOIEnergy/kubernetes/deployment.yaml
       endpoints:
         - name: http-8085
           targetPort: 8085
@@ -67,7 +67,7 @@ components:
       deployment/memoryRequest: 100Mi
       deployment/container-port: 8085
     kubernetes:
-      uri: kubernetes/service.yaml
+      uri: JOIEnergy/kubernetes/service.yaml
 commands:
   - id: build
     exec:

@@ -53,7 +53,7 @@ components:
       deployment/memoryRequest: 100Mi
       deployment/container-port: 8085
     kubernetes:
-      uri: JOIEnergy/kubernetes/deployment.yaml
+      uri: kubernetes/deployment.yaml
       endpoints:
         - name: http-8085
           targetPort: 8085
@@ -67,11 +67,11 @@ components:
       deployment/memoryRequest: 100Mi
       deployment/container-port: 8085
     kubernetes:
-      uri: JOIEnergy/kubernetes/service.yaml
+      uri: kubernetes/service.yaml
 commands:
   - id: build
     exec:
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: ${PROJECT_SOURCE}/JOIEnergy
       commandLine: kill $(pidof dotnet); dotnet build -c $CONFIGURATION $STARTUP_PROJECT /p:UseSharedCompilation=false
       component: dotnet
       group:
@@ -79,7 +79,7 @@ commands:
         kind: build
   - id: run
     exec:
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: ${PROJECT_SOURCE}/JOIEnergy
       commandLine: dotnet run -c $CONFIGURATION --no-build --project $STARTUP_PROJECT --no-launch-profile
       component: dotnet
       group:

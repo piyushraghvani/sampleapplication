@@ -9,4 +9,5 @@ EXPOSE 8085
 ENV ASPNETCORE_URLS=http://*:8085
 COPY --from=builder /opt/app-root/src /opt/app-root/src/JOIEnergy/bin
 WORKDIR /opt/app-root/src/JOIEnergy/bin/Release/net6.0/publish
+RUN dotnet tool install --global dotnet-ef --version 6.*
 CMD ["dotnet", "JOIEnergy.dll"]

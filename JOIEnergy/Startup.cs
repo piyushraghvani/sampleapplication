@@ -109,6 +109,7 @@ namespace JOIEnergy
             }
 
             app.UseMiddleware<ExceptionMiddleware>();
+            app.UseRouting();
         }
 
         private Dictionary<string, List<ElectricityReading>> GenerateMeterElectricityReadings()

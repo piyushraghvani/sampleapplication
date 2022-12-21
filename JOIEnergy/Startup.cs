@@ -86,6 +86,7 @@ namespace JOIEnergy
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Console.WriteLine($"Current environment is: {env.EnvironmentName}");
             if (env.EnvironmentName == Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
@@ -98,6 +99,12 @@ namespace JOIEnergy
             }
             else
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("../swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
                 app.UseExceptionHandler("/Error");
             }
 

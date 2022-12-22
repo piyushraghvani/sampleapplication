@@ -49,18 +49,6 @@ namespace JOIEnergy
                 }
             };
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll",
-                    builder =>
-                    {
-                        builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();
-                    });
-            });
             services.AddMvc();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IMeterReadingService, MeterReadingService>();
@@ -68,8 +56,6 @@ namespace JOIEnergy
             services.AddSingleton((IServiceProvider arg) => readings);
             services.AddSingleton((IServiceProvider arg) => pricePlans);
             services.AddSingleton((IServiceProvider arg) => SmartMeterToPricePlanAccounts);
-            // services.AddMvc(options => options.EnableEndpointRouting = false);
-
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
@@ -93,6 +79,17 @@ namespace JOIEnergy
                     }
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                           builder =>
+                           {
+                               builder.AllowAnyOrigin()
+                                     .AllowAnyMethod()
+                                     .AllowAnyHeader();
+                           });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,7 +104,7 @@ namespace JOIEnergy
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseCors("CorsPolicy");
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

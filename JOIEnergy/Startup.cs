@@ -56,7 +56,7 @@ namespace JOIEnergy
             services.AddSingleton((IServiceProvider arg) => readings);
             services.AddSingleton((IServiceProvider arg) => pricePlans);
             services.AddSingleton((IServiceProvider arg) => SmartMeterToPricePlanAccounts);
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            // services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddControllers();
 
@@ -90,26 +90,25 @@ namespace JOIEnergy
             if (env.EnvironmentName == Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("../swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
-                });
             }
             else
             {
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("../swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
-                });
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("../swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
         }
 
         private Dictionary<string, List<ElectricityReading>> GenerateMeterElectricityReadings()
